@@ -17,7 +17,7 @@ dayjs.extend(isSameOrBefore);
  * @param {string} tenantId - Tenant identifier
  * @param {string} date - Date string (YYYY-MM-DD)
  * @param {number} serviceDuration - Service duration in minutes
- * @returns {Promise<string[]>} Array of available time slots (HH:MM format)
+ * @returns {Promise<Array<{time: string, available_slots: number}>>} Array of available time slots with capacity
  */
 export async function getAvailableSlots(tenantId, date, serviceDuration) {
   // Get day of week
@@ -34,6 +34,7 @@ export async function getAvailableSlots(tenantId, date, serviceDuration) {
   // Get tenant settings
   const config = loadTenantConfig(tenantId);
   const slotDuration = config.settings.slot_duration_minutes || 30;
+  const numberOfStylists = config.settings.number_of_stylists || 5;
 
   // Generate all possible slots
   const slots = [];
@@ -55,26 +56,34 @@ export async function getAvailableSlots(tenantId, date, serviceDuration) {
     status: { $in: ['confirmed', 'pending'] }
   }).toArray();
 
-  // Filter out unavailable slots
-  const availableSlots = slots.filter(slot => {
-    return !isSlotConflicting(slot, serviceDuration, existingAppointments, date);
-  });
+  // Calculate available capacity for each slot
+  const availableSlots = slots
+    .map(slot => {
+      const concurrentBookings = countConcurrentBookings(slot, serviceDuration, existingAppointments, date);
+      const availableCapacity = numberOfStylists - concurrentBookings;
+      return {
+        time: slot,
+        available_slots: availableCapacity
+      };
+    })
+    .filter(slot => slot.available_slots > 0);
 
   return availableSlots;
 }
 
 /**
- * Check if a time slot conflicts with existing appointments
+ * Count concurrent bookings for a time slot
  * @param {string} time - Time slot (HH:MM)
  * @param {number} duration - Duration in minutes
  * @param {Array} existingAppointments - Array of existing appointments
  * @param {string} date - Date string (YYYY-MM-DD)
- * @returns {boolean} True if slot conflicts
+ * @returns {number} Number of concurrent bookings
  */
-function isSlotConflicting(time, duration, existingAppointments, date) {
+function countConcurrentBookings(time, duration, existingAppointments, date) {
   const slotStart = dayjs(`${date} ${time}`, 'YYYY-MM-DD HH:mm');
   const slotEnd = slotStart.add(duration, 'minute');
 
+  let count = 0;
   for (const apt of existingAppointments) {
     const aptStart = dayjs(`${date} ${apt.time}`, 'YYYY-MM-DD HH:mm');
     const aptEnd = dayjs(`${date} ${apt.end_time}`, 'YYYY-MM-DD HH:mm');
@@ -85,11 +94,23 @@ function isSlotConflicting(time, duration, existingAppointments, date) {
       (slotEnd.isAfter(aptStart) && slotEnd.isSameOrBefore(aptEnd)) ||
       (slotStart.isSameOrBefore(aptStart) && slotEnd.isSameOrAfter(aptEnd))
     ) {
-      return true;
+      count++;
     }
   }
 
-  return false;
+  return count;
+}
+
+/**
+ * Check if a time slot conflicts with existing appointments (DEPRECATED - use countConcurrentBookings)
+ * @param {string} time - Time slot (HH:MM)
+ * @param {number} duration - Duration in minutes
+ * @param {Array} existingAppointments - Array of existing appointments
+ * @param {string} date - Date string (YYYY-MM-DD)
+ * @returns {boolean} True if slot conflicts
+ */
+function isSlotConflicting(time, duration, existingAppointments, date) {
+  return countConcurrentBookings(time, duration, existingAppointments, date) > 0;
 }
 
 /**
@@ -98,9 +119,12 @@ function isSlotConflicting(time, duration, existingAppointments, date) {
  * @param {string} date - Date string (YYYY-MM-DD)
  * @param {string} time - Time string (HH:MM)
  * @param {number} duration - Duration in minutes
- * @returns {Promise<{available: boolean, error?: string}>}
+ * @returns {Promise<{available: boolean, available_slots?: number, error?: string}>}
  */
 export async function isSlotAvailable(tenantId, date, time, duration) {
+  const config = loadTenantConfig(tenantId);
+  const maxConcurrentBookings = config.settings.max_concurrent_bookings || 5;
+
   const appointmentsCol = database.getCollection(tenantId, 'appointments');
 
   const existingAppointments = await appointmentsCol.find({
@@ -108,17 +132,19 @@ export async function isSlotAvailable(tenantId, date, time, duration) {
     status: { $in: ['confirmed', 'pending'] }
   }).toArray();
 
-  const isConflicting = isSlotConflicting(time, duration, existingAppointments);
+  const concurrentCount = countConcurrentBookings(time, duration, existingAppointments, date);
 
-  if (isConflicting) {
+  if (concurrentCount >= maxConcurrentBookings) {
     return {
       available: false,
-      error: 'عذراً، هذا الموعد محجوز مسبقاً'
+      available_slots: 0,
+      error: 'لا توجد كوافيرة متاحة في هذا الوقت'
     };
   }
 
   return {
-    available: true
+    available: true,
+    available_slots: maxConcurrentBookings - concurrentCount
   };
 }
 

@@ -90,7 +90,9 @@
     "timezone": "Asia/Kuwait",
     "allow_same_day_booking": true,
     "require_deposit": false,
-    "deposit_percentage": 0
+    "deposit_percentage": 0,
+    "number_of_stylists": 5,
+    "max_concurrent_bookings": 5
   },
 
   "blocked_dates": [],

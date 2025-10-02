@@ -35,7 +35,7 @@ export function formatBookingSuccess(appointment, tenantId) {
 
 /**
  * Format available slots response
- * @param {Array<string>} slots - Array of time slots
+ * @param {Array<{time: string, available_slots: number}>} slots - Array of time slots with capacity
  * @param {string} date - Date string
  * @param {Object} service - Service object
  * @returns {Object} Formatted response
