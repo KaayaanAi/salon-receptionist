@@ -1,0 +1,9 @@
+node_modules
+npm-debug.log
+.env
+.git
+.gitignore
+.daddy
+*.md
+test-mcp.sh
+.DS_Store

@@ -1,0 +1,26 @@
+{
+  "name": "salon-receptionist-mcp",
+  "version": "1.0.0",
+  "description": "Multi-tenant salon appointment booking system via MCP",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node http-wrapper.js",
+    "dev": "node http-wrapper.js",
+    "stdio": "node index.js",
+    "test": "bash test-mcp.sh"
+  },
+  "keywords": ["mcp", "salon", "booking", "multi-tenant", "kuwait"],
+  "author": "Kaayaan AI",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "express": "^4.18.2",
+    "mongodb": "^6.3.0",
+    "dayjs": "^1.11.10",
+    "libphonenumber-js": "^1.10.51"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

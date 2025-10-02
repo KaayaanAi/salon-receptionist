@@ -1,0 +1,113 @@
+{
+  "tenant_id": "salon-farah",
+  "salon_info": {
+    "name": "صالون فرح",
+    "name_en": "Salon Farah",
+    "phone": "+96599123456",
+    "location": "السالمية، الكويت",
+    "instagram": "@salon_farah_kw"
+  },
+
+  "working_hours": {
+    "sunday": { "start": "10:00", "end": "20:00", "enabled": true },
+    "monday": { "start": "10:00", "end": "20:00", "enabled": true },
+    "tuesday": { "start": "10:00", "end": "20:00", "enabled": true },
+    "wednesday": { "start": "10:00", "end": "20:00", "enabled": true },
+    "thursday": { "start": "10:00", "end": "22:00", "enabled": true },
+    "friday": { "start": "00:00", "end": "00:00", "enabled": false },
+    "saturday": { "start": "12:00", "end": "22:00", "enabled": true }
+  },
+
+  "services": [
+    {
+      "id": "SRV-001",
+      "name": "قص شعر",
+      "name_en": "Haircut",
+      "duration_minutes": 30,
+      "price": 7,
+      "currency": "KWD",
+      "description": "قص شعر عادي",
+      "active": true
+    },
+    {
+      "id": "SRV-002",
+      "name": "صبغة شعر",
+      "name_en": "Hair Coloring",
+      "duration_minutes": 120,
+      "price": 30,
+      "currency": "KWD",
+      "description": "صبغة كاملة مع تجفيف",
+      "active": true
+    },
+    {
+      "id": "SRV-003",
+      "name": "علاج بروتين",
+      "name_en": "Protein Treatment",
+      "duration_minutes": 180,
+      "price": 45,
+      "currency": "KWD",
+      "description": "علاج بروتين برازيلي",
+      "active": true
+    },
+    {
+      "id": "SRV-004",
+      "name": "مكياج عرايس",
+      "name_en": "Bridal Makeup",
+      "duration_minutes": 90,
+      "price": 50,
+      "currency": "KWD",
+      "description": "مكياج عرايس فخم",
+      "active": true
+    },
+    {
+      "id": "SRV-005",
+      "name": "ماسك للوجه",
+      "name_en": "Facial",
+      "duration_minutes": 60,
+      "price": 18,
+      "currency": "KWD",
+      "description": "تنظيف وعناية بالبشرة",
+      "active": true
+    },
+    {
+      "id": "SRV-006",
+      "name": "باديكير ومانيكير",
+      "name_en": "Mani & Pedi",
+      "duration_minutes": 60,
+      "price": 12,
+      "currency": "KWD",
+      "description": "عناية باليدين والقدمين",
+      "active": true
+    }
+  ],
+
+  "settings": {
+    "slot_duration_minutes": 30,
+    "max_daily_bookings": 25,
+    "advance_booking_days": 30,
+    "cancellation_hours_notice": 24,
+    "default_language": "ar",
+    "timezone": "Asia/Kuwait",
+    "allow_same_day_booking": true,
+    "require_deposit": false,
+    "deposit_percentage": 0
+  },
+
+  "blocked_dates": [],
+
+  "whatsapp": {
+    "enabled": true,
+    "send_confirmations": true,
+    "send_reminders": true,
+    "reminder_hours_before": 24
+  },
+
+  "database": {
+    "collection_prefix": "farah_",
+    "collections": {
+      "appointments": "farah_appointments",
+      "customers": "farah_customers",
+      "blocked_slots": "farah_blocked_slots"
+    }
+  }
+}

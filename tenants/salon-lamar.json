@@ -1,0 +1,123 @@
+{
+  "tenant_id": "salon-lamar",
+  "salon_info": {
+    "name": "صالون لمار",
+    "name_en": "Salon Lamar",
+    "phone": "+96599654321",
+    "location": "حولي، الكويت",
+    "instagram": "@lamar_beauty_kw"
+  },
+
+  "working_hours": {
+    "sunday": { "start": "09:00", "end": "21:00", "enabled": true },
+    "monday": { "start": "09:00", "end": "21:00", "enabled": true },
+    "tuesday": { "start": "09:00", "end": "21:00", "enabled": true },
+    "wednesday": { "start": "09:00", "end": "21:00", "enabled": true },
+    "thursday": { "start": "09:00", "end": "23:00", "enabled": true },
+    "friday": { "start": "00:00", "end": "00:00", "enabled": false },
+    "saturday": { "start": "14:00", "end": "23:00", "enabled": true }
+  },
+
+  "services": [
+    {
+      "id": "SRV-001",
+      "name": "قص شعر",
+      "name_en": "Haircut",
+      "duration_minutes": 30,
+      "price": 6,
+      "currency": "KWD",
+      "description": "قص شعر احترافي",
+      "active": true
+    },
+    {
+      "id": "SRV-002",
+      "name": "صبغة",
+      "name_en": "Hair Coloring",
+      "duration_minutes": 120,
+      "price": 28,
+      "currency": "KWD",
+      "description": "صبغة شعر كاملة",
+      "active": true
+    },
+    {
+      "id": "SRV-003",
+      "name": "بروتين برازيلي",
+      "name_en": "Brazilian Blowout",
+      "duration_minutes": 180,
+      "price": 50,
+      "currency": "KWD",
+      "description": "علاج بروتين برازيلي أصلي",
+      "active": true
+    },
+    {
+      "id": "SRV-004",
+      "name": "مكياج سهرة",
+      "name_en": "Evening Makeup",
+      "duration_minutes": 60,
+      "price": 20,
+      "currency": "KWD",
+      "description": "مكياج سهرة فاخر",
+      "active": true
+    },
+    {
+      "id": "SRV-005",
+      "name": "تنظيف بشرة",
+      "name_en": "Deep Cleansing Facial",
+      "duration_minutes": 90,
+      "price": 22,
+      "currency": "KWD",
+      "description": "تنظيف عميق للبشرة",
+      "active": true
+    },
+    {
+      "id": "SRV-006",
+      "name": "حمام مغربي",
+      "name_en": "Moroccan Bath",
+      "duration_minutes": 90,
+      "price": 15,
+      "currency": "KWD",
+      "description": "حمام مغربي تقليدي",
+      "active": true
+    },
+    {
+      "id": "SRV-007",
+      "name": "شعر كيراتين",
+      "name_en": "Keratin Treatment",
+      "duration_minutes": 150,
+      "price": 55,
+      "currency": "KWD",
+      "description": "علاج كيراتين للشعر",
+      "active": true
+    }
+  ],
+
+  "settings": {
+    "slot_duration_minutes": 30,
+    "max_daily_bookings": 30,
+    "advance_booking_days": 45,
+    "cancellation_hours_notice": 48,
+    "default_language": "ar",
+    "timezone": "Asia/Kuwait",
+    "allow_same_day_booking": false,
+    "require_deposit": true,
+    "deposit_percentage": 20
+  },
+
+  "blocked_dates": [],
+
+  "whatsapp": {
+    "enabled": true,
+    "send_confirmations": true,
+    "send_reminders": true,
+    "reminder_hours_before": 48
+  },
+
+  "database": {
+    "collection_prefix": "lamar_",
+    "collections": {
+      "appointments": "lamar_appointments",
+      "customers": "lamar_customers",
+      "blocked_slots": "lamar_blocked_slots"
+    }
+  }
+}

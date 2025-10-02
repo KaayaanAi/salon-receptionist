@@ -1,0 +1,103 @@
+{
+  "tenant_id": "salon-template",
+  "salon_info": {
+    "name": "اسم الصالون",
+    "name_en": "Salon Name",
+    "phone": "+96599000000",
+    "location": "المنطقة، الكويت",
+    "instagram": "@salon_instagram"
+  },
+
+  "working_hours": {
+    "sunday": { "start": "09:00", "end": "21:00", "enabled": true },
+    "monday": { "start": "09:00", "end": "21:00", "enabled": true },
+    "tuesday": { "start": "09:00", "end": "21:00", "enabled": true },
+    "wednesday": { "start": "09:00", "end": "21:00", "enabled": true },
+    "thursday": { "start": "09:00", "end": "21:00", "enabled": true },
+    "friday": { "start": "00:00", "end": "00:00", "enabled": false },
+    "saturday": { "start": "10:00", "end": "20:00", "enabled": true }
+  },
+
+  "services": [
+    {
+      "id": "SRV-001",
+      "name": "قص شعر",
+      "name_en": "Haircut",
+      "duration_minutes": 30,
+      "price": 5,
+      "currency": "KWD",
+      "description": "قص شعر عادي",
+      "active": true
+    },
+    {
+      "id": "SRV-002",
+      "name": "صبغة",
+      "name_en": "Hair Coloring",
+      "duration_minutes": 120,
+      "price": 25,
+      "currency": "KWD",
+      "description": "صبغة كاملة مع تجفيف",
+      "active": true
+    },
+    {
+      "id": "SRV-003",
+      "name": "بروتين",
+      "name_en": "Protein Treatment",
+      "duration_minutes": 180,
+      "price": 40,
+      "currency": "KWD",
+      "description": "علاج بروتين برازيلي",
+      "active": true
+    },
+    {
+      "id": "SRV-004",
+      "name": "مكياج",
+      "name_en": "Makeup",
+      "duration_minutes": 60,
+      "price": 15,
+      "currency": "KWD",
+      "description": "مكياج كامل",
+      "active": true
+    },
+    {
+      "id": "SRV-005",
+      "name": "عناية بالبشرة",
+      "name_en": "Facial",
+      "duration_minutes": 90,
+      "price": 20,
+      "currency": "KWD",
+      "description": "تنظيف وعناية بالبشرة",
+      "active": true
+    }
+  ],
+
+  "settings": {
+    "slot_duration_minutes": 30,
+    "max_daily_bookings": 20,
+    "advance_booking_days": 30,
+    "cancellation_hours_notice": 24,
+    "default_language": "ar",
+    "timezone": "Asia/Kuwait",
+    "allow_same_day_booking": true,
+    "require_deposit": false,
+    "deposit_percentage": 0
+  },
+
+  "blocked_dates": [],
+
+  "whatsapp": {
+    "enabled": true,
+    "send_confirmations": true,
+    "send_reminders": true,
+    "reminder_hours_before": 24
+  },
+
+  "database": {
+    "collection_prefix": "template_",
+    "collections": {
+      "appointments": "template_appointments",
+      "customers": "template_customers",
+      "blocked_slots": "template_blocked_slots"
+    }
+  }
+}
